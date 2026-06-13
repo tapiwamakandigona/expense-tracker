@@ -37,10 +37,10 @@ Recently upgraded with a **sleek, glassmorphic UI design**, complete with vibran
 
 ## 🛠️ Technology Stack
 
-- **Frontend:** React 19, TypeScript
+- **Frontend:** React 18, TypeScript
 - **Styling:** Custom Vanilla CSS (Zero Bloat Frameworks)
 - **State:** React Hooks + LocalStorage API
-- **Build/Dev:** Vite
+- **Build/Dev:** Vite 5
 - **CI/CD:** GitHub Actions → GitHub Pages
 
 ---
@@ -54,10 +54,38 @@ npm install
 npm run dev
 ```
 
+The app will be available at `http://localhost:5173/expense-tracker/`.
+
 ### To build for production:
 
 ```bash
 npm run build
+```
+
+Output is written to the `dist/` directory.
+
+---
+
+## 📂 Project Structure
+
+```
+expense-tracker/
+├── src/
+│   ├── App.tsx              # Main application component
+│   ├── App.css              # Core styles (dark theme)
+│   ├── main.tsx             # React entry point
+│   ├── MonthlyChart.tsx     # SVG bar-chart component
+│   ├── useBudgets.ts        # Budget tracking hook
+│   ├── useRecurringExpenses.ts  # Recurring expense hook
+│   ├── useSavingsGoals.ts   # Savings goals hook
+│   ├── useStats.ts          # Analytics/statistics hook
+│   ├── useTheme.ts          # Dark/light theme toggle hook
+│   ├── animations.css       # Micro-animation keyframes
+│   └── lightTheme.css       # Light theme overrides
+├── index.html               # HTML shell
+├── vite.config.ts           # Vite configuration
+├── tsconfig.json            # TypeScript configuration
+└── package.json
 ```
 
 ---

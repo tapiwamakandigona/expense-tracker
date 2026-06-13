@@ -19,8 +19,12 @@ export function useBudgets(
   expenses: Array<{ amount: number; category: string; type: string; date: string }>
 ) {
   const [budgets, setBudgets] = useState<Budget[]>(() => {
-    const saved = localStorage.getItem("budgets");
-    return saved ? JSON.parse(saved) : [];
+    try {
+      const saved = localStorage.getItem("budgets");
+      return saved ? JSON.parse(saved) : [];
+    } catch {
+      return [];
+    }
   });
 
   useEffect(() => {

@@ -12,8 +12,12 @@ interface SavingsGoal {
 
 export function useSavingsGoals() {
   const [goals, setGoals] = useState<SavingsGoal[]>(() => {
-    const saved = localStorage.getItem("savings-goals");
-    return saved ? JSON.parse(saved) : [];
+    try {
+      const saved = localStorage.getItem("savings-goals");
+      return saved ? JSON.parse(saved) : [];
+    } catch {
+      return [];
+    }
   });
 
   useEffect(() => {
