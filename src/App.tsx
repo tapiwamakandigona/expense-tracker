@@ -17,8 +17,12 @@ const CATEGORIES = {
 
 export default function App() {
   const [expenses, setExpenses] = useState<Expense[]>(() => {
-    const saved = localStorage.getItem('expenses');
-    return saved ? JSON.parse(saved) : [];
+    try {
+      const saved = localStorage.getItem('expenses');
+      return saved ? JSON.parse(saved) : [];
+    } catch {
+      return [];
+    }
   });
   const [showForm, setShowForm] = useState(false);
   const [type, setType] = useState<'expense' | 'income'>('expense');
@@ -74,11 +78,16 @@ export default function App() {
 
   const exportCsv = () => {
     const rows = ['Date,Type,Category,Description,Amount'];
-    filtered.forEach(e => rows.push(`${e.date},${e.type},${e.category},"${e.description}",${e.amount}`));
+    filtered.forEach(e => {
+      // Escape double quotes by doubling them per RFC 4180
+      const desc = e.description.replace(/"/g, '""');
+      rows.push(`${e.date},${e.type},${e.category},"${desc}",${e.amount}`);
+    });
     const blob = new Blob([rows.join('\n')], { type: 'text/csv' });
     const url = URL.createObjectURL(blob);
     const a = document.createElement('a');
     a.href = url; a.download = 'expenses.csv'; a.click();
+    URL.revokeObjectURL(url);
   };
 
   return (
