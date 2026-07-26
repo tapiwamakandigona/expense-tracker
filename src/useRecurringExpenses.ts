@@ -15,8 +15,12 @@ export function useRecurringExpenses(
   addExpense: (amount: number, category: string, description: string, type: "expense" | "income") => void
 ) {
   const [recurring, setRecurring] = useState<RecurringExpense[]>(() => {
-    const saved = localStorage.getItem("recurring-expenses");
-    return saved ? JSON.parse(saved) : [];
+    try {
+      const saved = localStorage.getItem("recurring-expenses");
+      return saved ? JSON.parse(saved) : [];
+    } catch {
+      return [];
+    }
   });
 
   useEffect(() => {
